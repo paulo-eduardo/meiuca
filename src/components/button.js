@@ -24,13 +24,13 @@ export const Button = (props) => {
               minWidth: "108px",
               minHeight: "40px",
               maxWidth: "200px",
-              ...getStyle(props),
+              ...getStyle(props, props.css),
             }
           : {
               minWidth: "108px",
               minHeight: "40px",
               maxWidth: "200px",
-              ...getStyle(onHover),
+              ...getStyle(onHover, props.css),
             }
       }
     >

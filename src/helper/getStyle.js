@@ -1,4 +1,6 @@
-const getStyle = (props) => {
+let globalCss;
+const getStyle = (props, css) => {
+  globalCss = css;
   return {
     ...getBorderRadius(props),
     ...getBorderWidth(props),
@@ -22,43 +24,43 @@ export default getStyle;
 const getBorderRadius = (props) => {
   switch (props.borderR) {
     case "Small":
-      return { borderRadius: "8px" };
+      return { borderRadius: globalCss.borderRadiusSmall };
     case "Pill":
-      return { borderRadius: "500px" };
+      return { borderRadius: globalCss.borderRadiusPill };
     case "Circular":
-      return { borderRadius: "50%" };
+      return { borderRadius: globalCss.borderRadiusCircular };
     case "None":
     default:
-      return { borderRadius: "0px" };
+      return { borderRadius: globalCss.borderRadiusNone };
   }
 };
 
 const getBorderWidth = (props) => {
   switch (props.borderWidth) {
     case "Thin":
-      return { borderWidth: "1px" };
+      return { borderWidth: globalCss.borderWidthThin };
     case "Thick":
-      return { borderWidth: "2px" };
+      return { borderWidth: globalCss.borderWidthThick };
     case "Thicker":
-      return { borderWidth: "4px" };
+      return { borderWidth: globalCss.borderWidthThicker };
     case "None":
     default:
-      return { borderWidth: "0px" };
+      return { borderWidth: globalCss.borderWidthNone };
   }
 };
 
 const getOpacityLevel = (props) => {
   switch (props.opacityLevel) {
     case "SemiOpaque":
-      return { opacity: "0.8" };
+      return { opacity: globalCss.opacitySemiOpaque };
     case "Intense":
-      return { opacity: "0.64" };
+      return { opacity: globalCss.opacityIntense };
     case "Medium":
-      return { opacity: "0.32" };
+      return { opacity: globalCss.opacityMedium };
     case "Light":
-      return { opacity: "0.16" };
+      return { opacity: globalCss.opacityLight };
     case "SemiTransparent":
-      return { opacity: "0.08" };
+      return { opacity: globalCss.opacitySemiTransparent };
     case "None":
     default:
       return;
@@ -68,13 +70,21 @@ const getOpacityLevel = (props) => {
 const getShadowLevel = (props) => {
   switch (props.shadowLevel) {
     case "1":
-      return { boxShadow: `0px 4px 16px` };
+      return {
+        boxShadow: `${globalCss.shadowOffsetXNone} ${globalCss.shadowOffsetYLevel1} ${globalCss.shadowBlurRadiusLevel1}`,
+      };
     case "2":
-      return { boxShadow: `0px 8px 24px` };
+      return {
+        boxShadow: `${globalCss.shadowOffsetXNone}  ${globalCss.shadowOffsetYLevel2} ${globalCss.shadowBlurRadiusLevel2}`,
+      };
     case "3":
-      return { boxShadow: `0px 16px 32px` };
+      return {
+        boxShadow: `${globalCss.shadowOffsetXNone}  ${globalCss.shadowOffsetYLevel3} ${globalCss.shadowBlurRadiusLevel3}`,
+      };
     case "4":
-      return { boxShadow: `0px 16px 48px` };
+      return {
+        boxShadow: `${globalCss.shadowOffsetXNone}  ${globalCss.shadowOffsetYLevel4} ${globalCss.shadowBlurRadiusLevel4}`,
+      };
     default:
       return;
   }
@@ -83,14 +93,14 @@ const getShadowLevel = (props) => {
 const getPrimarySecondaryColor = (intense) => {
   switch (intense) {
     case "Lightest":
-      return "#EEEEEE";
+      return globalCss.colorBrandPrimaryLightest;
     case "Light":
-      return "#CDCDCD";
+      return globalCss.colorBrandPrimaryLight;
     case "Medium":
     case "Dark":
     case "Darkest":
     default:
-      return "#000000";
+      return globalCss.colorBrandPrimaryDarkest;
   }
 };
 
@@ -113,15 +123,15 @@ const getColor = (color, intense) => {
 const getAttentionColor = (intense) => {
   switch (intense) {
     case "Lightest":
-      return "#FFD9BF";
+      return globalCss.colorAttentionLightest;
     case "Light":
-      return "#FFA160";
+      return globalCss.colorAttentionLight;
     case "Medium":
-      return "#FF6D00";
+      return globalCss.colorAttentionMedium;
     case "Dark":
-      return "#EO5800";
+      return globalCss.colorAttentionDark;
     case "Darkest":
-      return "#C24300";
+      return globalCss.colorAttentionDarkest;
     default:
       break;
   }
@@ -130,15 +140,15 @@ const getAttentionColor = (intense) => {
 const getSuccessColor = (intense) => {
   switch (intense) {
     case "Lightest":
-      return "#BFFFD2";
+      return globalCss.colorSuccessLightest;
     case "Light":
-      return "#60F391";
+      return globalCss.colorSuccessLight;
     case "Medium":
-      return "#00C853";
+      return globalCss.colorSuccessMedium;
     case "Dark":
-      return "#00B048";
+      return globalCss.colorSuccessDark;
     case "Darkest":
-      return "#00983D";
+      return globalCss.colorSuccessDarkest;
     default:
       break;
   }
@@ -147,15 +157,15 @@ const getSuccessColor = (intense) => {
 const getNeutralColor = (intense) => {
   switch (intense) {
     case "Lightest":
-      return "#FFFFFF";
+      return globalCss.colorNeutralLightest;
     case "Light":
-      return "#F0F2F7";
+      return globalCss.colorNeutralLight;
     case "Medium":
-      return "#D4D7DD";
+      return globalCss.colorNeutralMedium;
     case "Dark":
-      return "#60646C";
+      return globalCss.colorNeutralDark;
     case "Darkest":
-      return "black";
+      return globalCss.colorNeutralDarkest;
     default:
       break;
   }
@@ -164,41 +174,41 @@ const getNeutralColor = (intense) => {
 const getFontFamily = (props) => {
   switch (props.fontFamily) {
     case "Highlight":
-      return { fontFamily: "Archivo" };
+      return { fontFamily: globalCss.fontFamilyHighlight };
     case "Base":
     default:
-      return { fontFamily: "Capitolina" };
+      return { fontFamily: globalCss.fontFamilyBase };
   }
 };
 
 const getFontWeight = (props) => {
   switch (props.fontWeight) {
     case "Bold":
-      return { fontWeight: 700 };
+      return { fontWeight: globalCss.fontWeightBold };
     case "Medium":
-      return { fontWeight: 500 };
+      return { fontWeight: globalCss.fontWeightMedium };
     case "Regular":
     default:
-      return { fontWeight: 300 };
+      return { fontWeight: globalCss.fontWeightRegular };
   }
 };
 
 const getFontSize = (props) => {
   switch (props.fontSize) {
     case "XS":
-      return { fontSize: "12px" };
+      return { fontSize: globalCss.fontSizeXs };
     case "SM":
-      return { fontSize: "16px" };
+      return { fontSize: globalCss.fontSizeSm };
     case "MD":
-      return { fontSize: "24px" };
+      return { fontSize: globalCss.fontSizeMd };
     case "LG":
-      return { fontSize: "32px" };
+      return { fontSize: globalCss.fontSizeLg };
     case "XL":
-      return { fontSize: "48px" };
+      return { fontSize: globalCss.fontSizeXl };
     case "XXL":
-      return { fontSize: "64px" };
+      return { fontSize: globalCss.fontSizeXxl };
     case "XXXL":
-      return { fontSize: "80px" };
+      return { fontSize: globalCss.fontSizeXxxl };
     default:
       return;
   }
@@ -207,23 +217,23 @@ const getFontSize = (props) => {
 const getSpacingStack = (props) => {
   switch (props.spacingStack) {
     case "XXXS":
-      return { marginTop: "4px" };
+      return { marginTop: globalCss.spacingStackXxxs };
     case "XXS":
-      return { marginTop: "8px" };
+      return { marginTop: globalCss.spacingStackXxs };
     case "XS":
-      return { marginTop: "16px" };
+      return { marginTop: globalCss.spacingStackXs };
     case "SM":
-      return { marginTop: "24px" };
+      return { marginTop: globalCss.spacingStackSm };
     case "MD":
-      return { marginTop: "32px" };
+      return { marginTop: globalCss.spacingStackMd };
     case "LG":
-      return { marginTop: "48px" };
+      return { marginTop: globalCss.spacingStackLg };
     case "XL":
-      return { marginTop: "72px" };
+      return { marginTop: globalCss.spacingStackXl };
     case "XXL":
-      return { marginTop: "120px" };
+      return { marginTop: globalCss.spacingStackXxl };
     case "XXXL":
-      return { marginTop: "160px" };
+      return { marginTop: globalCss.spacingStackXxxl };
     default:
       return;
   }
@@ -232,19 +242,19 @@ const getSpacingStack = (props) => {
 const getSpacingInline = (props) => {
   switch (props.spacingInline) {
     case "XXXS":
-      return { marginLeft: "4px" };
+      return { marginLeft: globalCss.spacingInlineXxxs };
     case "XXS":
-      return { marginLeft: "8px" };
+      return { marginLeft: globalCss.spacingInlineXxs };
     case "XS":
-      return { marginLeft: "16px" };
+      return { marginLeft: globalCss.spacingInlineXs };
     case "SM":
-      return { marginLeft: "24px" };
+      return { marginLeft: globalCss.spacingInlineSm };
     case "MD":
-      return { marginLeft: "32px" };
+      return { marginLeft: globalCss.spacingInlineMd };
     case "LG":
-      return { marginLeft: "48px" };
+      return { marginLeft: globalCss.spacingInlineLg };
     case "XL":
-      return { marginLeft: "72px" };
+      return { marginLeft: globalCss.spacingInlineXl };
     default:
       return;
   }
@@ -253,17 +263,17 @@ const getSpacingInline = (props) => {
 const getSpacingInset = (props) => {
   switch (props.SpacingInset) {
     case "XXS":
-      return { margin: "4px" };
+      return { margin: globalCss.spacingInsetXxs };
     case "XS":
-      return { margin: "8px" };
+      return { margin: globalCss.spacingInsetXs };
     case "SM":
-      return { margin: "16px" };
+      return { margin: globalCss.spacingInsetSm };
     case "MD":
-      return { margin: "24px" };
+      return { margin: globalCss.spacingInsetMd };
     case "LG":
-      return { margin: "32px" };
+      return { margin: globalCss.spacingInsetLg };
     case "XL":
-      return { margin: "48px" };
+      return { margin: globalCss.spacingInsetXl };
     default:
       return;
   }
@@ -272,15 +282,15 @@ const getSpacingInset = (props) => {
 const getSpacingSquish = (props) => {
   switch (props.spacingSquish) {
     case "XS":
-      return { margin: "4px 8px" };
+      return { margin: globalCss.spacingSquishXs };
     case "SM":
-      return { margin: "8px 16px" };
+      return { margin: globalCss.spacingSquishSm };
     case "MD":
-      return { margin: "16px 24px" };
+      return { margin: globalCss.spacingSquishMd };
     case "LG":
-      return { margin: "16px 32px" };
+      return { margin: globalCss.spacingSquishLg };
     case "XL":
-      return { margin: "32px 48px" };
+      return { margin: globalCss.spacingSquishXl };
     default:
       return;
   }

@@ -11,5 +11,5 @@ export const Subtitle = (props) => {
     ...props,
   };
 
-  return <span style={getStyle(style)}>{props.children}</span>;
+  return <span style={getStyle(style, props.css)}>{props.children}</span>;
 };

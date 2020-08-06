@@ -14,7 +14,7 @@ export const Shape = (props) => {
   return (
     <div
       style={{
-        ...getStyle(style),
+        ...getStyle(style, props.css),
         maxWidth: "500px",
         display: "flex",
         flexDirection: "column",
